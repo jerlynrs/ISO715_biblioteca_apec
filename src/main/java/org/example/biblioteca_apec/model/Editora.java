@@ -1,80 +1,40 @@
 package org.example.biblioteca_apec.model;
 
-import java.sql.Timestamp;
-
 public class Editora {
-    private int idEditora;
-    private String nombre;
-    private String pais;
-    private String sitioWeb;
-    private boolean activo;
-    private Timestamp fechaCreacion;
-    private Timestamp fechaModificacion;
+    private int id;
+    private String descripcion;
+    private boolean estado;
 
     public Editora() {
     }
 
-    public Editora(int idEditora, String nombre, String pais, String sitioWeb, boolean activo) {
-        this.idEditora = idEditora;
-        this.nombre = nombre;
-        this.pais = pais;
-        this.sitioWeb = sitioWeb;
-        this.activo = activo;
+    public Editora(int id, String descripcion, boolean estado) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.estado = estado;
     }
 
-    public int getIdEditora() {
-        return idEditora;
+    public int getId() {
+        return id;
     }
 
-    public void setIdEditora(int idEditora) {
-        this.idEditora = idEditora;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
-    public String getPais() {
-        return pais;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    public String getSitioWeb() {
-        return sitioWeb;
-    }
-
-    public void setSitioWeb(String sitioWeb) {
-        this.sitioWeb = sitioWeb;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public Timestamp getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Timestamp fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Timestamp getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

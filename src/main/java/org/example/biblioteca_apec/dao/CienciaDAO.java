@@ -11,7 +11,7 @@ public class CienciaDAO {
 
     public List<Ciencia> listarTodos() throws SQLException {
         List<Ciencia> lista = new ArrayList<>();
-        String sql = "SELECT * FROM ciencias ORDER BY id_ciencia";
+        String sql = "SELECT * FROM ciencia ORDER BY id";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -19,12 +19,9 @@ public class CienciaDAO {
 
             while (rs.next()) {
                 Ciencia ciencia = new Ciencia();
-                ciencia.setIdCiencia(rs.getInt("id_ciencia"));
-                ciencia.setNombre(rs.getString("nombre"));
+                ciencia.setId(rs.getInt("id"));
                 ciencia.setDescripcion(rs.getString("descripcion"));
-                ciencia.setActivo(rs.getBoolean("activo"));
-                ciencia.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                ciencia.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+                ciencia.setEstado(rs.getBoolean("estado"));
                 lista.add(ciencia);
             }
         }
@@ -32,59 +29,52 @@ public class CienciaDAO {
     }
 
     public Ciencia obtenerPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM ciencias WHERE id_ciencia = ?";
+        String sql = "SELECT * FROM ciencia WHERE id = ?";
+        Ciencia ciencia = null;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                Ciencia ciencia = new Ciencia();
-                ciencia.setIdCiencia(rs.getInt("id_ciencia"));
-                ciencia.setNombre(rs.getString("nombre"));
-                ciencia.setDescripcion(rs.getString("descripcion"));
-                ciencia.setActivo(rs.getBoolean("activo"));
-                ciencia.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                ciencia.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
-                return ciencia;
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    ciencia = new Ciencia();
+                    ciencia.setId(rs.getInt("id"));
+                    ciencia.setDescripcion(rs.getString("descripcion"));
+                    ciencia.setEstado(rs.getBoolean("estado"));
+                }
             }
         }
-        return null;
+        return ciencia;
     }
 
     public boolean insertar(Ciencia ciencia) throws SQLException {
-        String sql = "INSERT INTO ciencias (nombre, descripcion, activo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO ciencia (descripcion, estado) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, ciencia.getNombre());
-            pstmt.setString(2, ciencia.getDescripcion());
-            pstmt.setBoolean(3, ciencia.isActivo());
-
+            pstmt.setString(1, ciencia.getDescripcion());
+            pstmt.setBoolean(2, ciencia.isEstado());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean actualizar(Ciencia ciencia) throws SQLException {
-        String sql = "UPDATE ciencias SET nombre = ?, descripcion = ?, activo = ?, fecha_modificacion = CURRENT_TIMESTAMP WHERE id_ciencia = ?";
+        String sql = "UPDATE ciencia SET descripcion = ?, estado = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, ciencia.getNombre());
-            pstmt.setString(2, ciencia.getDescripcion());
-            pstmt.setBoolean(3, ciencia.isActivo());
-            pstmt.setInt(4, ciencia.getIdCiencia());
-
+            pstmt.setString(1, ciencia.getDescripcion());
+            pstmt.setBoolean(2, ciencia.isEstado());
+            pstmt.setInt(3, ciencia.getId());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean eliminar(int id) throws SQLException {
-        String sql = "DELETE FROM ciencias WHERE id_ciencia = ?";
+        String sql = "DELETE FROM ciencia WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

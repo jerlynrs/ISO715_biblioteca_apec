@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/ciencias")
+@WebServlet(name = "CienciaServlet", urlPatterns = {"/ciencias"})
 public class CienciaServlet extends HttpServlet {
 
     private CienciaDAO cienciaDAO;
@@ -25,13 +25,13 @@ public class CienciaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String action = request.getParameter("action");
-        if (action == null) {
-            action = "listar";
-        }
 
         try {
+            if (action == null) {
+                action = "listar";
+            }
+
             switch (action) {
                 case "nuevo":
                     mostrarFormularioNuevo(request, response);
@@ -54,7 +54,6 @@ public class CienciaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String action = request.getParameter("action");
 
         try {
@@ -70,8 +69,8 @@ public class CienciaServlet extends HttpServlet {
 
     private void listarCiencias(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        List<Ciencia> lista = cienciaDAO.listarTodos();
-        request.setAttribute("listaCiencias", lista);
+        List<Ciencia> listaCiencias = cienciaDAO.listarTodos();
+        request.setAttribute("listaCiencias", listaCiencias);
         request.getRequestDispatcher("/views/ciencias/listar.jsp").forward(request, response);
     }
 
@@ -90,32 +89,24 @@ public class CienciaServlet extends HttpServlet {
 
     private void insertarCiencia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        boolean activo = request.getParameter("activo") != null;
+        boolean estado = Boolean.parseBoolean(request.getParameter("estado"));
 
-        Ciencia ciencia = new Ciencia();
-        ciencia.setNombre(nombre);
-        ciencia.setDescripcion(descripcion);
-        ciencia.setActivo(activo);
+        Ciencia nuevaCiencia = new Ciencia();
+        nuevaCiencia.setDescripcion(descripcion);
+        nuevaCiencia.setEstado(estado);
 
-        cienciaDAO.insertar(ciencia);
+        cienciaDAO.insertar(nuevaCiencia);
         response.sendRedirect(request.getContextPath() + "/ciencias");
     }
 
     private void actualizarCiencia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        boolean activo = request.getParameter("activo") != null;
+        boolean estado = Boolean.parseBoolean(request.getParameter("estado"));
 
-        Ciencia ciencia = new Ciencia();
-        ciencia.setIdCiencia(id);
-        ciencia.setNombre(nombre);
-        ciencia.setDescripcion(descripcion);
-        ciencia.setActivo(activo);
-
+        Ciencia ciencia = new Ciencia(id, descripcion, estado);
         cienciaDAO.actualizar(ciencia);
         response.sendRedirect(request.getContextPath() + "/ciencias");
     }

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/tipos-bibliografia")
+@WebServlet(name = "TipoBibliografiaServlet", urlPatterns = {"/tipos-bibliografia"})
 public class TipoBibliografiaServlet extends HttpServlet {
 
     private TipoBibliografiaDAO tipoBibliografiaDAO;
@@ -25,13 +25,13 @@ public class TipoBibliografiaServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String action = request.getParameter("action");
-        if (action == null) {
-            action = "listar";
-        }
 
         try {
+            if (action == null) {
+                action = "listar";
+            }
+
             switch (action) {
                 case "nuevo":
                     mostrarFormularioNuevo(request, response);
@@ -40,10 +40,10 @@ public class TipoBibliografiaServlet extends HttpServlet {
                     mostrarFormularioEditar(request, response);
                     break;
                 case "eliminar":
-                    eliminarTipo(request, response);
+                    eliminarTipoBibliografia(request, response);
                     break;
                 default:
-                    listarTipos(request, response);
+                    listarTiposBibliografia(request, response);
                     break;
             }
         } catch (SQLException e) {
@@ -54,24 +54,23 @@ public class TipoBibliografiaServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         String action = request.getParameter("action");
 
         try {
             if ("insertar".equals(action)) {
-                insertarTipo(request, response);
+                insertarTipoBibliografia(request, response);
             } else if ("actualizar".equals(action)) {
-                actualizarTipo(request, response);
+                actualizarTipoBibliografia(request, response);
             }
         } catch (SQLException e) {
             throw new ServletException(e);
         }
     }
 
-    private void listarTipos(HttpServletRequest request, HttpServletResponse response)
+    private void listarTiposBibliografia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, ServletException, IOException {
-        List<TipoBibliografia> lista = tipoBibliografiaDAO.listarTodos();
-        request.setAttribute("listaTipos", lista);
+        List<TipoBibliografia> listaTipos = tipoBibliografiaDAO.listarTodos();
+        request.setAttribute("listaTipos", listaTipos);
         request.getRequestDispatcher("/views/tipos-bibliografia/listar.jsp").forward(request, response);
     }
 
@@ -88,39 +87,31 @@ public class TipoBibliografiaServlet extends HttpServlet {
         request.getRequestDispatcher("/views/tipos-bibliografia/formulario.jsp").forward(request, response);
     }
 
-    private void insertarTipo(HttpServletRequest request, HttpServletResponse response)
+    private void insertarTipoBibliografia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        boolean activo = request.getParameter("activo") != null;
+        boolean estado = Boolean.parseBoolean(request.getParameter("estado"));
 
-        TipoBibliografia tipo = new TipoBibliografia();
-        tipo.setNombre(nombre);
-        tipo.setDescripcion(descripcion);
-        tipo.setActivo(activo);
+        TipoBibliografia nuevoTipo = new TipoBibliografia();
+        nuevoTipo.setDescripcion(descripcion);
+        nuevoTipo.setEstado(estado);
 
-        tipoBibliografiaDAO.insertar(tipo);
+        tipoBibliografiaDAO.insertar(nuevoTipo);
         response.sendRedirect(request.getContextPath() + "/tipos-bibliografia");
     }
 
-    private void actualizarTipo(HttpServletRequest request, HttpServletResponse response)
+    private void actualizarTipoBibliografia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        String nombre = request.getParameter("nombre");
         String descripcion = request.getParameter("descripcion");
-        boolean activo = request.getParameter("activo") != null;
+        boolean estado = Boolean.parseBoolean(request.getParameter("estado"));
 
-        TipoBibliografia tipo = new TipoBibliografia();
-        tipo.setIdTipoBibliografia(id);
-        tipo.setNombre(nombre);
-        tipo.setDescripcion(descripcion);
-        tipo.setActivo(activo);
-
+        TipoBibliografia tipo = new TipoBibliografia(id, descripcion, estado);
         tipoBibliografiaDAO.actualizar(tipo);
         response.sendRedirect(request.getContextPath() + "/tipos-bibliografia");
     }
 
-    private void eliminarTipo(HttpServletRequest request, HttpServletResponse response)
+    private void eliminarTipoBibliografia(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
         tipoBibliografiaDAO.eliminar(id);

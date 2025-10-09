@@ -1,140 +1,43 @@
 package org.example.biblioteca_apec.model;
 
-import java.sql.Timestamp;
-
 public class Libro {
-    private int idLibro;
-    private String isbn;
-    private String titulo;
-    private String subtitulo;
-    private int idTipoBibliografia;
-    private int idEditora;
-    private int idCiencia;
-    private int idIdioma;
-    private int idAutor;
-    private int añoPublicacion;
-    private String edicion;
-    private int numeroPaginas;
-    private String ubicacionFisica;
-    private int cantidadDisponible;
+    private int id;
     private String descripcion;
-    private boolean activo;
-    private Timestamp fechaCreacion;
-    private Timestamp fechaModificacion;
+    private String signaturaTopografica;
+    private String isbn;
+    private int tipoBibliografia;
+    private int autor;
+    private int editora;
+    private int anioPublicacion;
+    private int ciencia;
+    private int idioma;
+    private boolean estado;
 
     public Libro() {
     }
 
-    public int getIdLibro() {
-        return idLibro;
-    }
-
-    public void setIdLibro(int idLibro) {
-        this.idLibro = idLibro;
-    }
-
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
+    public Libro(int id, String descripcion, String signaturaTopografica, String isbn,
+                 int tipoBibliografia, int autor, int editora, int anioPublicacion,
+                 int ciencia, int idioma, boolean estado) {
+        this.id = id;
+        this.descripcion = descripcion;
+        this.signaturaTopografica = signaturaTopografica;
         this.isbn = isbn;
+        this.tipoBibliografia = tipoBibliografia;
+        this.autor = autor;
+        this.editora = editora;
+        this.anioPublicacion = anioPublicacion;
+        this.ciencia = ciencia;
+        this.idioma = idioma;
+        this.estado = estado;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public int getId() {
+        return id;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getSubtitulo() {
-        return subtitulo;
-    }
-
-    public void setSubtitulo(String subtitulo) {
-        this.subtitulo = subtitulo;
-    }
-
-    public int getIdTipoBibliografia() {
-        return idTipoBibliografia;
-    }
-
-    public void setIdTipoBibliografia(int idTipoBibliografia) {
-        this.idTipoBibliografia = idTipoBibliografia;
-    }
-
-    public int getIdEditora() {
-        return idEditora;
-    }
-
-    public void setIdEditora(int idEditora) {
-        this.idEditora = idEditora;
-    }
-
-    public int getIdCiencia() {
-        return idCiencia;
-    }
-
-    public void setIdCiencia(int idCiencia) {
-        this.idCiencia = idCiencia;
-    }
-
-    public int getIdIdioma() {
-        return idIdioma;
-    }
-
-    public void setIdIdioma(int idIdioma) {
-        this.idIdioma = idIdioma;
-    }
-
-    public int getIdAutor() {
-        return idAutor;
-    }
-
-    public void setIdAutor(int idAutor) {
-        this.idAutor = idAutor;
-    }
-
-    public int getAñoPublicacion() {
-        return añoPublicacion;
-    }
-
-    public void setAñoPublicacion(int añoPublicacion) {
-        this.añoPublicacion = añoPublicacion;
-    }
-
-    public String getEdicion() {
-        return edicion;
-    }
-
-    public void setEdicion(String edicion) {
-        this.edicion = edicion;
-    }
-
-    public int getNumeroPaginas() {
-        return numeroPaginas;
-    }
-
-    public void setNumeroPaginas(int numeroPaginas) {
-        this.numeroPaginas = numeroPaginas;
-    }
-
-    public String getUbicacionFisica() {
-        return ubicacionFisica;
-    }
-
-    public void setUbicacionFisica(String ubicacionFisica) {
-        this.ubicacionFisica = ubicacionFisica;
-    }
-
-    public int getCantidadDisponible() {
-        return cantidadDisponible;
-    }
-
-    public void setCantidadDisponible(int cantidadDisponible) {
-        this.cantidadDisponible = cantidadDisponible;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -145,27 +48,75 @@ public class Libro {
         this.descripcion = descripcion;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public String getSignaturaTopografica() {
+        return signaturaTopografica;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
+    public void setSignaturaTopografica(String signaturaTopografica) {
+        this.signaturaTopografica = signaturaTopografica;
     }
 
-    public Timestamp getFechaCreacion() {
-        return fechaCreacion;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setFechaCreacion(Timestamp fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public Timestamp getFechaModificacion() {
-        return fechaModificacion;
+    public int getTipoBibliografia() {
+        return tipoBibliografia;
     }
 
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setTipoBibliografia(int tipoBibliografia) {
+        this.tipoBibliografia = tipoBibliografia;
+    }
+
+    public int getAutor() {
+        return autor;
+    }
+
+    public void setAutor(int autor) {
+        this.autor = autor;
+    }
+
+    public int getEditora() {
+        return editora;
+    }
+
+    public void setEditora(int editora) {
+        this.editora = editora;
+    }
+
+    public int getAnioPublicacion() {
+        return anioPublicacion;
+    }
+
+    public void setAnioPublicacion(int anioPublicacion) {
+        this.anioPublicacion = anioPublicacion;
+    }
+
+    public int getCiencia() {
+        return ciencia;
+    }
+
+    public void setCiencia(int ciencia) {
+        this.ciencia = ciencia;
+    }
+
+    public int getIdioma() {
+        return idioma;
+    }
+
+    public void setIdioma(int idioma) {
+        this.idioma = idioma;
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

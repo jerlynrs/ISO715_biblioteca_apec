@@ -1,39 +1,25 @@
 package org.example.biblioteca_apec.model;
 
-import java.sql.Timestamp;
-
 public class TipoBibliografia {
-    private int idTipoBibliografia;
-    private String nombre;
+    private int id;
     private String descripcion;
-    private boolean activo;
-    private Timestamp fechaCreacion;
-    private Timestamp fechaModificacion;
+    private boolean estado;
 
     public TipoBibliografia() {
     }
 
-    public TipoBibliografia(int idTipoBibliografia, String nombre, String descripcion, boolean activo) {
-        this.idTipoBibliografia = idTipoBibliografia;
-        this.nombre = nombre;
+    public TipoBibliografia(int id, String descripcion, boolean estado) {
+        this.id = id;
         this.descripcion = descripcion;
-        this.activo = activo;
+        this.estado = estado;
     }
 
-    public int getIdTipoBibliografia() {
-        return idTipoBibliografia;
+    public int getId() {
+        return id;
     }
 
-    public void setIdTipoBibliografia(int idTipoBibliografia) {
-        this.idTipoBibliografia = idTipoBibliografia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getDescripcion() {
@@ -44,27 +30,11 @@ public class TipoBibliografia {
         this.descripcion = descripcion;
     }
 
-    public boolean isActivo() {
-        return activo;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public Timestamp getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Timestamp fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Timestamp getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

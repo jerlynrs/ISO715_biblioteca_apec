@@ -11,7 +11,7 @@ public class AutorDAO {
 
     public List<Autor> listarTodos() throws SQLException {
         List<Autor> lista = new ArrayList<>();
-        String sql = "SELECT * FROM autores ORDER BY apellido, nombre";
+        String sql = "SELECT * FROM autor ORDER BY id";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -19,15 +19,11 @@ public class AutorDAO {
 
             while (rs.next()) {
                 Autor autor = new Autor();
-                autor.setIdAutor(rs.getInt("id_autor"));
+                autor.setId(rs.getInt("id"));
                 autor.setNombre(rs.getString("nombre"));
-                autor.setApellido(rs.getString("apellido"));
-                autor.setNacionalidad(rs.getString("nacionalidad"));
-                autor.setBiografia(rs.getString("biografia"));
-                autor.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
-                autor.setActivo(rs.getBoolean("activo"));
-                autor.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                autor.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+                autor.setPaisOrigen(rs.getString("pais_origen"));
+                autor.setIdiomaNativo(rs.getInt("idioma_nativo"));
+                autor.setEstado(rs.getBoolean("estado"));
                 lista.add(autor);
             }
         }
@@ -35,68 +31,58 @@ public class AutorDAO {
     }
 
     public Autor obtenerPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM autores WHERE id_autor = ?";
+        String sql = "SELECT * FROM autor WHERE id = ?";
+        Autor autor = null;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                Autor autor = new Autor();
-                autor.setIdAutor(rs.getInt("id_autor"));
-                autor.setNombre(rs.getString("nombre"));
-                autor.setApellido(rs.getString("apellido"));
-                autor.setNacionalidad(rs.getString("nacionalidad"));
-                autor.setBiografia(rs.getString("biografia"));
-                autor.setFechaNacimiento(rs.getDate("fecha_nacimiento"));
-                autor.setActivo(rs.getBoolean("activo"));
-                autor.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                autor.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
-                return autor;
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    autor = new Autor();
+                    autor.setId(rs.getInt("id"));
+                    autor.setNombre(rs.getString("nombre"));
+                    autor.setPaisOrigen(rs.getString("pais_origen"));
+                    autor.setIdiomaNativo(rs.getInt("idioma_nativo"));
+                    autor.setEstado(rs.getBoolean("estado"));
+                }
             }
         }
-        return null;
+        return autor;
     }
 
     public boolean insertar(Autor autor) throws SQLException {
-        String sql = "INSERT INTO autores (nombre, apellido, nacionalidad, biografia, fecha_nacimiento, activo) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO autor (nombre, pais_origen, idioma_nativo, estado) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, autor.getNombre());
-            pstmt.setString(2, autor.getApellido());
-            pstmt.setString(3, autor.getNacionalidad());
-            pstmt.setString(4, autor.getBiografia());
-            pstmt.setDate(5, autor.getFechaNacimiento());
-            pstmt.setBoolean(6, autor.isActivo());
-
+            pstmt.setString(2, autor.getPaisOrigen());
+            pstmt.setInt(3, autor.getIdiomaNativo());
+            pstmt.setBoolean(4, autor.isEstado());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean actualizar(Autor autor) throws SQLException {
-        String sql = "UPDATE autores SET nombre = ?, apellido = ?, nacionalidad = ?, biografia = ?, fecha_nacimiento = ?, activo = ?, fecha_modificacion = CURRENT_TIMESTAMP WHERE id_autor = ?";
+        String sql = "UPDATE autor SET nombre = ?, pais_origen = ?, idioma_nativo = ?, estado = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, autor.getNombre());
-            pstmt.setString(2, autor.getApellido());
-            pstmt.setString(3, autor.getNacionalidad());
-            pstmt.setString(4, autor.getBiografia());
-            pstmt.setDate(5, autor.getFechaNacimiento());
-            pstmt.setBoolean(6, autor.isActivo());
-            pstmt.setInt(7, autor.getIdAutor());
-
+            pstmt.setString(2, autor.getPaisOrigen());
+            pstmt.setInt(3, autor.getIdiomaNativo());
+            pstmt.setBoolean(4, autor.isEstado());
+            pstmt.setInt(5, autor.getId());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean eliminar(int id) throws SQLException {
-        String sql = "DELETE FROM autores WHERE id_autor = ?";
+        String sql = "DELETE FROM autor WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

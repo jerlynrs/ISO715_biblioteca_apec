@@ -1,35 +1,29 @@
 package org.example.biblioteca_apec.model;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 public class Autor {
-    private int idAutor;
+    private int id;
     private String nombre;
-    private String apellido;
-    private String nacionalidad;
-    private String biografia;
-    private Date fechaNacimiento;
-    private boolean activo;
-    private Timestamp fechaCreacion;
-    private Timestamp fechaModificacion;
+    private String paisOrigen;
+    private int idiomaNativo;
+    private boolean estado;
 
     public Autor() {
     }
 
-    public Autor(int idAutor, String nombre, String apellido, String nacionalidad) {
-        this.idAutor = idAutor;
+    public Autor(int id, String nombre, String paisOrigen, int idiomaNativo, boolean estado) {
+        this.id = id;
         this.nombre = nombre;
-        this.apellido = apellido;
-        this.nacionalidad = nacionalidad;
+        this.paisOrigen = paisOrigen;
+        this.idiomaNativo = idiomaNativo;
+        this.estado = estado;
     }
 
-    public int getIdAutor() {
-        return idAutor;
+    public int getId() {
+        return id;
     }
 
-    public void setIdAutor(int idAutor) {
-        this.idAutor = idAutor;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -40,63 +34,27 @@ public class Autor {
         this.nombre = nombre;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getPaisOrigen() {
+        return paisOrigen;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setPaisOrigen(String paisOrigen) {
+        this.paisOrigen = paisOrigen;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
+    public int getIdiomaNativo() {
+        return idiomaNativo;
     }
 
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setIdiomaNativo(int idiomaNativo) {
+        this.idiomaNativo = idiomaNativo;
     }
 
-    public String getBiografia() {
-        return biografia;
+    public boolean isEstado() {
+        return estado;
     }
 
-    public void setBiografia(String biografia) {
-        this.biografia = biografia;
-    }
-
-    public Date getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
-
-    public boolean isActivo() {
-        return activo;
-    }
-
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
-
-    public Timestamp getFechaCreacion() {
-        return fechaCreacion;
-    }
-
-    public void setFechaCreacion(Timestamp fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
-    }
-
-    public Timestamp getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(Timestamp fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    public String getNombreCompleto() {
-        return nombre + " " + apellido;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

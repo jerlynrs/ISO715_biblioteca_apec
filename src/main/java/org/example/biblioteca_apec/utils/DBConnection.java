@@ -5,13 +5,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConnection {
-    private static final String URL = "jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:6543/postgres";
-    private static final String USER = "postgres.aybkqfogaisopgkfwvyr";
-    private static final String PASSWORD = "biblioteca_apec_2025";
+    private static final String URL = "jdbc:postgresql://localhost:5432/biblioteca_apec";
+    private static final String USER = "postgres";
+    private static final String PASSWORD = "123456";
+    private static final String DRIVER = "org.postgresql.Driver";
 
     static {
         try {
-            Class.forName("org.postgresql.Driver");
+            Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException("Error al cargar el driver de PostgreSQL", e);
         }

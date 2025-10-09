@@ -11,7 +11,7 @@ public class TipoBibliografiaDAO {
 
     public List<TipoBibliografia> listarTodos() throws SQLException {
         List<TipoBibliografia> lista = new ArrayList<>();
-        String sql = "SELECT * FROM tipos_bibliografia ORDER BY id_tipo_bibliografia";
+        String sql = "SELECT * FROM tipo_bibliografia ORDER BY id";
 
         try (Connection conn = DBConnection.getConnection();
              Statement stmt = conn.createStatement();
@@ -19,12 +19,9 @@ public class TipoBibliografiaDAO {
 
             while (rs.next()) {
                 TipoBibliografia tipo = new TipoBibliografia();
-                tipo.setIdTipoBibliografia(rs.getInt("id_tipo_bibliografia"));
-                tipo.setNombre(rs.getString("nombre"));
+                tipo.setId(rs.getInt("id"));
                 tipo.setDescripcion(rs.getString("descripcion"));
-                tipo.setActivo(rs.getBoolean("activo"));
-                tipo.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                tipo.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
+                tipo.setEstado(rs.getBoolean("estado"));
                 lista.add(tipo);
             }
         }
@@ -32,59 +29,52 @@ public class TipoBibliografiaDAO {
     }
 
     public TipoBibliografia obtenerPorId(int id) throws SQLException {
-        String sql = "SELECT * FROM tipos_bibliografia WHERE id_tipo_bibliografia = ?";
+        String sql = "SELECT * FROM tipo_bibliografia WHERE id = ?";
+        TipoBibliografia tipo = null;
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
-            ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                TipoBibliografia tipo = new TipoBibliografia();
-                tipo.setIdTipoBibliografia(rs.getInt("id_tipo_bibliografia"));
-                tipo.setNombre(rs.getString("nombre"));
-                tipo.setDescripcion(rs.getString("descripcion"));
-                tipo.setActivo(rs.getBoolean("activo"));
-                tipo.setFechaCreacion(rs.getTimestamp("fecha_creacion"));
-                tipo.setFechaModificacion(rs.getTimestamp("fecha_modificacion"));
-                return tipo;
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    tipo = new TipoBibliografia();
+                    tipo.setId(rs.getInt("id"));
+                    tipo.setDescripcion(rs.getString("descripcion"));
+                    tipo.setEstado(rs.getBoolean("estado"));
+                }
             }
         }
-        return null;
+        return tipo;
     }
 
     public boolean insertar(TipoBibliografia tipo) throws SQLException {
-        String sql = "INSERT INTO tipos_bibliografia (nombre, descripcion, activo) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO tipo_bibliografia (descripcion, estado) VALUES (?, ?)";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, tipo.getNombre());
-            pstmt.setString(2, tipo.getDescripcion());
-            pstmt.setBoolean(3, tipo.isActivo());
-
+            pstmt.setString(1, tipo.getDescripcion());
+            pstmt.setBoolean(2, tipo.isEstado());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean actualizar(TipoBibliografia tipo) throws SQLException {
-        String sql = "UPDATE tipos_bibliografia SET nombre = ?, descripcion = ?, activo = ?, fecha_modificacion = CURRENT_TIMESTAMP WHERE id_tipo_bibliografia = ?";
+        String sql = "UPDATE tipo_bibliografia SET descripcion = ?, estado = ? WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, tipo.getNombre());
-            pstmt.setString(2, tipo.getDescripcion());
-            pstmt.setBoolean(3, tipo.isActivo());
-            pstmt.setInt(4, tipo.getIdTipoBibliografia());
-
+            pstmt.setString(1, tipo.getDescripcion());
+            pstmt.setBoolean(2, tipo.isEstado());
+            pstmt.setInt(3, tipo.getId());
             return pstmt.executeUpdate() > 0;
         }
     }
 
     public boolean eliminar(int id) throws SQLException {
-        String sql = "DELETE FROM tipos_bibliografia WHERE id_tipo_bibliografia = ?";
+        String sql = "DELETE FROM tipo_bibliografia WHERE id = ?";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

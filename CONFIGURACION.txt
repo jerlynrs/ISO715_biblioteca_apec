@@ -1,0 +1,182 @@
+========================================
+SISTEMA DE BIBLIOTECA UNIVERSITARIA APEC
+========================================
+
+CONFIGURACIÓN DEL PROYECTO
+--------------------------
+
+IDE: IntelliJ IDEA
+Nombre del proyecto: biblioteca_apec
+Servidor: Apache Tomcat 10.1.46
+JDK: OpenJDK 23
+Sistema de construcción: Maven
+Base de datos: PostgreSQL (Supabase)
+
+ESTRUCTURA DEL PROYECTO
+-----------------------
+
+biblioteca_apec/
+├── pom.xml
+├── src/
+│   └── main/
+│       ├── java/org/example/biblioteca_apec/
+│       │   ├── model/          (Clases de entidad)
+│       │   │   ├── TipoBibliografia.java
+│       │   │   ├── Editora.java
+│       │   │   ├── Ciencia.java
+│       │   │   ├── Autor.java
+│       │   │   └── Libro.java
+│       │   ├── dao/            (Acceso a datos)
+│       │   │   ├── TipoBibliografiaDAO.java
+│       │   │   ├── CienciaDAO.java
+│       │   │   └── AutorDAO.java
+│       │   ├── controller/     (Servlets)
+│       │   │   ├── TipoBibliografiaServlet.java
+│       │   │   ├── CienciaServlet.java
+│       │   │   └── AutorServlet.java
+│       │   └── utils/
+│       │       └── DBConnection.java
+│       └── webapp/
+│           ├── index.jsp
+│           ├── css/
+│           │   └── styles.css
+│           ├── views/
+│           │   ├── header.jsp
+│           │   ├── footer.jsp
+│           │   ├── tipos-bibliografia/
+│           │   │   ├── listar.jsp
+│           │   │   └── formulario.jsp
+│           │   ├── ciencias/
+│           │   │   ├── listar.jsp
+│           │   │   └── formulario.jsp
+│           │   └── autores/
+│           │       ├── listar.jsp
+│           │       └── formulario.jsp
+│           └── WEB-INF/
+│               └── web.xml
+
+CONFIGURACIÓN EN INTELLIJ IDEA
+------------------------------
+
+1. Abrir IntelliJ IDEA
+
+2. File > Open > Seleccionar la carpeta del proyecto
+
+3. Configurar Tomcat:
+   - Run > Edit Configurations
+   - Click en "+" > Tomcat Server > Local
+   - Name: Tomcat 10.1.46
+   - Application Server: Click "Configure" y seleccionar la ruta de instalación de Tomcat
+   - En la pestaña "Deployment":
+     - Click "+" > Artifact > biblioteca_apec:war exploded
+     - Application context: /biblioteca_apec
+
+4. Configurar JDK:
+   - File > Project Structure > Project
+   - SDK: Seleccionar OpenJDK 23
+   - Language level: 23
+
+5. Configurar Maven:
+   - View > Tool Windows > Maven
+   - Click en el botón "Reload All Maven Projects"
+
+BASE DE DATOS
+-------------
+
+El proyecto usa PostgreSQL a través de Supabase.
+
+CREDENCIALES (ya configuradas en DBConnection.java):
+- URL: jdbc:postgresql://aws-0-us-east-1.pooler.supabase.com:6543/postgres
+- Usuario: postgres.aybkqfogaisopgkfwvyr
+- Password: biblioteca_apec_2025
+
+TABLAS CREADAS:
+- tipos_bibliografia
+- editoras
+- ciencias
+- idiomas
+- autores
+- usuarios
+- empleados
+- libros
+- prestamos
+
+MÓDULOS IMPLEMENTADOS (CRUD COMPLETO)
+------------------------------------
+
+1. Tipos de Bibliografía
+   - URL: http://localhost:8080/biblioteca_apec/tipos-bibliografia
+   - Operaciones: Listar, Crear, Editar, Eliminar
+
+2. Ciencias
+   - URL: http://localhost:8080/biblioteca_apec/ciencias
+   - Operaciones: Listar, Crear, Editar, Eliminar
+
+3. Autores
+   - URL: http://localhost:8080/biblioteca_apec/autores
+   - Operaciones: Listar, Crear, Editar, Eliminar
+
+CÓMO EJECUTAR EL PROYECTO
+-------------------------
+
+1. Asegurarse de que Tomcat 10.1.46 esté instalado
+
+2. En IntelliJ IDEA:
+   - Click en el botón "Run" (triángulo verde)
+   - O presionar Shift + F10
+
+3. El navegador se abrirá automáticamente en:
+   http://localhost:8080/biblioteca_apec/
+
+4. Desde allí podrá acceder a todos los módulos
+
+DEPENDENCIAS MAVEN
+------------------
+
+- Jakarta Servlet API 6.0.0
+- Jakarta JSP API 3.1.1
+- JSTL 3.0.0
+- PostgreSQL Driver 42.7.3
+- HikariCP 5.1.0 (Connection Pool)
+
+PRÓXIMOS PASOS PARA COMPLETAR EL SISTEMA
+----------------------------------------
+
+Para completar todos los requerimientos funcionales, se deben crear:
+
+1. Módulos adicionales (siguiendo el mismo patrón):
+   - Editoras
+   - Idiomas
+   - Usuarios
+   - Empleados
+   - Libros (con relaciones a otras tablas)
+   - Préstamos (proceso completo de préstamo y devolución)
+
+2. Funcionalidades avanzadas:
+   - Consultas por criterios múltiples
+   - Reportes (por tipo, idioma, fechas)
+   - Validaciones más robustas
+   - Manejo de errores personalizado
+
+3. Mejoras de UI:
+   - Paginación de tablas
+   - Búsqueda y filtros
+   - Mensajes de confirmación (toast notifications)
+
+NOTAS IMPORTANTES
+-----------------
+
+- El proyecto usa @WebServlet en lugar de configuración en web.xml para los servlets
+- Todas las tablas tienen Row Level Security (RLS) habilitado en Supabase
+- El código sigue el patrón MVC básico
+- Se usa JDBC puro sin frameworks ORM
+- Las conexiones a BD se cierran automáticamente con try-with-resources
+
+SOPORTE
+-------
+
+Este es un proyecto académico para APEC.
+Para más información, consultar la documentación de:
+- Jakarta EE: https://jakarta.ee/
+- Apache Tomcat: https://tomcat.apache.org/
+- PostgreSQL: https://www.postgresql.org/

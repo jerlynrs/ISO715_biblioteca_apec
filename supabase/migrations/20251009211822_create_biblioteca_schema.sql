@@ -1,5 +1,5 @@
 /*
-  # Sistema de Gestión de Biblioteca Universitaria APEC
+  # SCRIP PARA LA BASE DE DAROS
   
   1. Nuevas Tablas
     - `tipos_bibliografia` - Catálogo de tipos (Libro, Revista, Periódico, etc.)

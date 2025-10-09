@@ -12,8 +12,8 @@
         <div class="card h-100 shadow-sm">
             <div class="card-body text-center">
                 <i class="fas fa-folder fa-3x text-primary mb-3"></i>
-                <h5 class="card-title">Catálogos</h5>
-                <p class="card-text">Gestión de tipos de bibliografía, editoras, ciencias, idiomas y autores.</p>
+                <h5 class="card-title">Catalogos</h5>
+                <p class="card-text">Gestion de tipos de bibliografia, editoras, ciencias, idiomas y autores.</p>
                 <a href="${pageContext.request.contextPath}/tipos-bibliografia" class="btn btn-primary">Acceder</a>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <div class="card-body text-center">
                 <i class="fas fa-book fa-3x text-success mb-3"></i>
                 <h5 class="card-title">Libros</h5>
-                <p class="card-text">Administración completa del catálogo de libros de la biblioteca.</p>
+                <p class="card-text">Administracion completa del catalogo de libros de la biblioteca.</p>
                 <a href="${pageContext.request.contextPath}/libros" class="btn btn-success">Gestionar</a>
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="card-body text-center">
                 <i class="fas fa-users fa-3x text-info mb-3"></i>
                 <h5 class="card-title">Usuarios</h5>
-                <p class="card-text">Registro y gestión de usuarios de la biblioteca universitaria.</p>
+                <p class="card-text">Registro y gestion de usuarios de la biblioteca universitaria.</p>
                 <a href="${pageContext.request.contextPath}/usuarios" class="btn btn-info text-white">Administrar</a>
             </div>
         </div>
@@ -56,8 +56,8 @@
         <div class="card h-100 shadow-sm">
             <div class="card-body text-center">
                 <i class="fas fa-exchange-alt fa-3x text-danger mb-3"></i>
-                <h5 class="card-title">Préstamos</h5>
-                <p class="card-text">Gestión de préstamos y devoluciones de material bibliográfico.</p>
+                <h5 class="card-title">Prestamos</h5>
+                <p class="card-text">Gestión de prestamos y devoluciones de material bibliográfico.</p>
                 <a href="${pageContext.request.contextPath}/prestamos" class="btn btn-danger">Gestionar</a>
             </div>
         </div>

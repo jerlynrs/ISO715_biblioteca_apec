@@ -42,9 +42,9 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
-                            <label for="noCarnet" class="form-label">No. Carnet:</label>
+                            <label for="noCarnet" class="form-label">Matricula o ID:</label>
                             <input type="text" class="form-control" id="noCarnet" name="noCarnet"
-                                   value="${usuario != null ? usuario.noCarnet : ''}" placeholder="EST-2024-001">
+                                   value="${usuario != null ? usuario.noCarnet : ''}" placeholder="A00113235">
                         </div>
                     </div>
 
@@ -53,8 +53,8 @@
                             <label for="tipoPersona" class="form-label">Tipo de Persona:</label>
                             <select class="form-select" id="tipoPersona" name="tipoPersona" required>
                                 <option value="">Seleccione...</option>
-                                <option value="FISICA" ${usuario != null && usuario.tipoPersona == 'FISICA' ? 'selected' : ''}>Física</option>
-                                <option value="JURIDICA" ${usuario != null && usuario.tipoPersona == 'JURIDICA' ? 'selected' : ''}>Jurídica</option>
+                                <option value="FISICA" ${usuario != null && usuario.tipoPersona == 'FISICA' ? 'selected' : ''}>Estudiante</option>
+                                <option value="JURIDICA" ${usuario != null && usuario.tipoPersona == 'JURIDICA' ? 'selected' : ''}>Profesor</option>
                             </select>
                         </div>
 

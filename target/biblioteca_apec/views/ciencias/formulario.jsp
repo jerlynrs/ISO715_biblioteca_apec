@@ -29,7 +29,7 @@
                     </c:if>
 
                     <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <label for="descripcion" class="form-label">Descripcion:</label>
                         <input type="text" class="form-control" id="descripcion" name="descripcion"
                                value="${ciencia != null ? ciencia.descripcion : ''}" required>
                     </div>
